@@ -1,0 +1,14 @@
+# General
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# Backend
+backend/venv/
+backend/.env
+backend/__pycache__/
+backend/*.pyc
+backend/*.sqlite
+backend/*.db
+backend/outputs/

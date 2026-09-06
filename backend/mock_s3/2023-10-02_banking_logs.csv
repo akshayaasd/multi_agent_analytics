@@ -1,0 +1,13 @@
+call_id,timestamp,duration,disposition,intent,confidence,fallback_count
+B-2001,2023-10-02T08:00:00,45.5,resolved,balance_inquiry,0.98,0
+B-2002,2023-10-02T08:15:00,120.0,resolved,transfer_funds,0.92,0
+B-2003,2023-10-02T08:30:00,340.5,transferred,report_lost_card,0.85,1
+B-2004,2023-10-02T08:45:00,210.0,transferred,dispute_charge,0.78,2
+B-2005,2023-10-02T09:00:00,30.0,resolved,balance_inquiry,0.99,0
+B-2006,2023-10-02T09:15:00,180.0,resolved,loan_status,0.90,0
+B-2007,2023-10-02T09:30:00,420.0,abandoned,unknown,0.45,3
+B-2008,2023-10-02T09:45:00,55.0,resolved,balance_inquiry,0.97,0
+B-2009,2023-10-02T10:00:00,250.0,transferred,dispute_charge,0.82,1
+B-2010,2023-10-02T10:15:00,190.0,resolved,transfer_funds,0.94,0
+B-2011,2023-10-02T10:30:00,310.0,transferred,report_lost_card,0.88,1
+B-2012,2023-10-02T10:45:00,40.0,resolved,balance_inquiry,0.99,0

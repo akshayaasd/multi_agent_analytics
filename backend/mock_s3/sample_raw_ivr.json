@@ -1,0 +1,47 @@
+{
+  "call_id": "B-3001",
+  "start_time": "2023-10-03T10:00:00Z",
+  "end_time": "2023-10-03T10:02:15Z",
+  "caller_id": "+15551234567",
+  "events": [
+    {
+      "timestamp": "2023-10-03T10:00:02Z",
+      "speaker": "BOT",
+      "text": "Welcome to Global Bank. How can I help you today?"
+    },
+    {
+      "timestamp": "2023-10-03T10:00:10Z",
+      "speaker": "USER",
+      "text": "Yeah, I need to check how much money is in my checking account."
+    },
+    {
+      "timestamp": "2023-10-03T10:00:12Z",
+      "speaker": "BOT",
+      "text": "I can help with your balance inquiry. Please say or enter your 4-digit PIN."
+    },
+    {
+      "timestamp": "2023-10-03T10:00:18Z",
+      "speaker": "USER",
+      "text": "[DTMF_INPUT_HIDDEN]"
+    },
+    {
+      "timestamp": "2023-10-03T10:00:22Z",
+      "speaker": "BOT",
+      "text": "Thank you. Your checking account balance is $1,250.00. Is there anything else?"
+    },
+    {
+      "timestamp": "2023-10-03T10:00:28Z",
+      "speaker": "USER",
+      "text": "No, that's it."
+    },
+    {
+      "timestamp": "2023-10-03T10:00:30Z",
+      "speaker": "BOT",
+      "text": "Thank you for calling Global Bank. Goodbye."
+    }
+  ],
+  "routing": {
+    "final_disposition": "hangup_by_user",
+    "transferred_to_agent": false
+  }
+}
