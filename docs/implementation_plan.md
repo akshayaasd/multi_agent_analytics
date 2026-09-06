@@ -31,5 +31,7 @@ Based on the original design in `image.png`, the system consists of the followin
 - [x] Implemented Table, Analysis, Visualization, and Email agents.
 - [x] Local mocked dependencies (SQLite instead of Postgres, local directory for S3).
 - [x] Connect Analysis Agent to a live LLM (OpenAI/Anthropic) for dynamic narratives. (Implemented with Ollama and OpenAI toggle via .env)
-- [x] Set up the Frontend dashboard (React/Next.js) for triggering on-demand graphs. (Implemented React/Vite Dashboard)
-- [x] Migrate local mocks (SQLite -> Postgres, Local folder -> AWS S3). (Added PostgreSQL support with SQLite fallback, S3 migration skipped for now)
+- [x] Set up the Frontend dashboard (React/Vite) for triggering on-demand custom, daily, and weekly reports.
+- [x] **Fully Automate Delivery:** Updated Email Agent to autonomously compile CID-embedded HTML and send via Resend API without human intervention.
+- [x] **Automated Scheduler:** Integrated APScheduler into the FastAPI backend to trigger the multi-agent pipeline autonomously at 6:00 AM daily.
+- [ ] Migrate local mocks (SQLite -> Postgres, Local folder -> AWS S3). (Added PostgreSQL support with SQLite fallback, S3 migration skipped for now)
