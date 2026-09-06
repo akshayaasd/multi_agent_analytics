@@ -19,6 +19,37 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.cron import CronTrigger
+from datetime import datetime, timedelta
+
+def run_daily_report():
+    yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+    print(f"Triggering scheduled daily report for {yesterday}")
+    try:
+        pipeline = build_pipeline()
+        initial_state = {
+            "files_processed": [],
+            "analysis_results": {},
+            "chart_paths": [],
+            "email_status": "",
+            "errors": [],
+            "start_date": yesterday,
+            "end_date": yesterday,
+            "report_type": "daily"
+        }
+        pipeline.invoke(initial_state)
+    except Exception as e:
+        print(f"Scheduled pipeline error: {e}")
+
+@app.on_event("startup")
+def start_scheduler():
+    scheduler = BackgroundScheduler()
+    # Trigger at 6:00 AM every day
+    scheduler.add_job(run_daily_report, CronTrigger(hour=6, minute=0))
+    scheduler.start()
+    print("Background scheduler started. Daily report set for 6:00 AM.")
+
 # Ensure outputs directory exists
 os.makedirs("outputs", exist_ok=True)
 app.mount("/outputs", StaticFiles(directory="outputs"), name="outputs")
