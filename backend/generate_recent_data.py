@@ -9,14 +9,28 @@ session = SessionLocal()
 intents = ['balance_inquiry', 'transfer_funds', 'billing_inquiry', 'technical_support', 'password_reset']
 dispositions = ['resolved', 'resolved', 'resolved', 'abandoned', 'escalated']
 
-# Today is 2026-09-05
-today = datetime(2026, 9, 5, 10, 0, 0)
+# Dynamic current timestamp
+now = datetime.now()
 
-# Generate 5 calls for today
-for i in range(5):
+# Generate 10 calls for today
+for i in range(10):
     rec = CallRecord(
         id=str(uuid.uuid4()),
-        timestamp=today - timedelta(hours=i),
+        timestamp=now - timedelta(hours=i * 2),
+        duration=random.uniform(30.0, 300.0),
+        disposition=random.choice(dispositions),
+        intent=random.choice(intents),
+        confidence=random.uniform(0.7, 1.0),
+        fallback_count=random.randint(0, 2) if random.random() > 0.7 else 0
+    )
+    session.add(rec)
+
+# Generate 10 calls for yesterday
+yesterday = now - timedelta(days=1)
+for i in range(10):
+    rec = CallRecord(
+        id=str(uuid.uuid4()),
+        timestamp=yesterday - timedelta(hours=i * 2),
         duration=random.uniform(30.0, 300.0),
         disposition=random.choice(dispositions),
         intent=random.choice(intents),
@@ -29,7 +43,7 @@ for i in range(5):
 for i in range(15):
     rec = CallRecord(
         id=str(uuid.uuid4()),
-        timestamp=today - timedelta(days=random.randint(1, 6), hours=random.randint(0, 23)),
+        timestamp=now - timedelta(days=random.randint(1, 6), hours=random.randint(0, 23)),
         duration=random.uniform(30.0, 300.0),
         disposition=random.choice(dispositions),
         intent=random.choice(intents),
@@ -42,7 +56,7 @@ for i in range(15):
 for i in range(20):
     rec = CallRecord(
         id=str(uuid.uuid4()),
-        timestamp=today - timedelta(days=random.randint(7, 29), hours=random.randint(0, 23)),
+        timestamp=now - timedelta(days=random.randint(7, 29), hours=random.randint(0, 23)),
         duration=random.uniform(30.0, 300.0),
         disposition=random.choice(dispositions),
         intent=random.choice(intents),
@@ -55,7 +69,7 @@ for i in range(20):
 for i in range(30):
     rec = CallRecord(
         id=str(uuid.uuid4()),
-        timestamp=today - timedelta(days=random.randint(30, 200), hours=random.randint(0, 23)),
+        timestamp=now - timedelta(days=random.randint(30, 200), hours=random.randint(0, 23)),
         duration=random.uniform(30.0, 300.0),
         disposition=random.choice(dispositions),
         intent=random.choice(intents),

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Table, FileBarChart, PlayCircle, PhoneCall, CheckCircle2, XCircle, Clock , MessageSquare } from 'lucide-react';
+import { LayoutDashboard, Table, FileBarChart, PlayCircle, PhoneCall, CheckCircle2, XCircle, Clock , MessageSquare, Mail, CheckCircle } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
@@ -18,7 +18,7 @@ function Sidebar() {
   ];
 
   return (
-    <div className="w-64 bg-[#111827] text-slate-300 min-h-screen flex flex-col shadow-xl font-sans">
+    <div className="w-64 bg-[#111827] text-slate-300 flex-shrink-0 flex flex-col shadow-xl font-sans z-10">
       <div className="p-6 border-b border-slate-800 flex items-center gap-3">
         <PhoneCall className="text-blue-400" />
         <h1 className="text-xl font-bold tracking-tight text-white">IVR Analytics</h1>
@@ -405,7 +405,7 @@ function Artifacts() {
             <FileBarChart size={48} className="text-slate-300 mb-4" />
             <h3 className="text-lg font-bold text-slate-700 mb-2">No Reports Generated Yet</h3>
             <p className="text-slate-500 mb-6 max-w-md text-center">Trigger the LangGraph pipeline to process call logs, generate narratives with Ollama, and produce charts.</p>
-            <button onClick={handleTrigger} className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors">
+            <button onClick={() => handleTrigger()} className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors">
                 Trigger Analysis Now
             </button>
         </div>
@@ -703,7 +703,7 @@ function EmailAgent() {
 function App() {
   return (
     <Router>
-      <div className="flex h-screen overflow-hidden bg-slate-50 font-sans">
+      <div className="flex h-screen w-screen overflow-hidden bg-slate-50 font-sans">
         <Sidebar />
         <main className="flex-1 overflow-x-hidden overflow-y-auto">
           <Routes>

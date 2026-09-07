@@ -44,8 +44,8 @@ def email_agent(state: PipelineState) -> PipelineState:
 
         narrative = results.get("narrative", "")
         
-        # Build formal HTML
-        html_content = f"""
+        # Build formal HTML for saving to disk (web view)
+        html_content_web = f"""
         <div style="font-family: sans-serif; color: #333; line-height: 1.6;">
             <p>Hello Stakeholders,</p>
             <p>Please find the IVR Analytics {rt.capitalize()} Report for the recent period below. The report highlights key metrics, call dispositions, and trends in customer intents.</p>
@@ -55,11 +55,17 @@ def email_agent(state: PipelineState) -> PipelineState:
             <h3>Charts:</h3>
         """
         
+        # Build formal HTML for email (cid view)
+        html_content_email = html_content_web
+        
         attachments = []
         for chart_path in chart_paths:
             filename = os.path.basename(chart_path)
             cid = f"img_{filename}"
-            html_content += f'<img src="cid:{cid}" alt="Chart" style="max-width: 600px; height: auto;"><br>'
+            
+            # Web uses direct filename, email uses cid
+            html_content_web += f'<img src="{filename}" alt="Chart" style="max-width: 600px; height: auto;"><br>'
+            html_content_email += f'<img src="cid:{cid}" alt="Chart" style="max-width: 600px; height: auto;"><br>'
             
             # Read chart for attachment
             if os.path.exists(chart_path):
@@ -71,15 +77,17 @@ def email_agent(state: PipelineState) -> PipelineState:
                     "content_id": cid
                 })
             
-        html_content += """
+        footer = """
             <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
             <p>Best regards,<br/><b>IVR Analytics Agent</b></p>
         </div>
         """
+        html_content_web += footer
+        html_content_email += footer
         
         email_path = f"outputs/{prefix}_report.html"
         with open(email_path, "w") as f:
-            f.write(html_content)
+            f.write(html_content_web)
             
         # Actually send via Resend
         import resend
@@ -94,7 +102,7 @@ def email_agent(state: PipelineState) -> PipelineState:
                     "from": "onboarding@resend.dev",
                     "to": [r.strip() for r in recipient.split(",") if r.strip()],
                     "subject": f"IVR Analytics Report - {prefix}",
-                    "html": html_content
+                    "html": html_content_email
                 }
                 if attachments:
                     params["attachments"] = attachments

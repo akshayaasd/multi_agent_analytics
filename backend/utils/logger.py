@@ -13,9 +13,10 @@ def get_logger(name: str) -> logging.Logger:
         ch = logging.StreamHandler(sys.stdout)
         ch.setLevel(logging.INFO)
         
-        # Create file handler
+        # Create file handler for the specific agent
         os.makedirs("logs", exist_ok=True)
-        fh = logging.FileHandler("logs/pipeline.log")
+        agent_name = name.split('.')[-1] if '.' in name else name
+        fh = logging.FileHandler(f"logs/{agent_name}.log")
         fh.setLevel(logging.DEBUG)
         
         # Create formatter

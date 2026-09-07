@@ -16,7 +16,7 @@ def create_log(call_id, start_time, duration_sec, events, routing):
 mock_s3_path = "mock_s3"
 os.makedirs(mock_s3_path, exist_ok=True)
 
-base_time = datetime(2023, 10, 4, 9, 0, 0)
+base_time = datetime.now().replace(microsecond=0)
 
 logs = [
     # Call 1: Lost Card (Transferred to agent)

@@ -85,7 +85,10 @@ def analysis_agent(state: PipelineState) -> PipelineState:
                 llm = ChatOpenAI(temperature=0, model_name="gpt-4o-mini")
                 narrative = llm.invoke(prompt).content
             else:
-                from langchain_community.chat_models import ChatOllama
+                try:
+                    from langchain_community.chat_models.ollama import ChatOllama
+                except ImportError:
+                    from langchain_community.chat_models import ChatOllama
                 llm = ChatOllama(model=os.getenv("OLLAMA_MODEL", "llama3"), temperature=0)
                 narrative = llm.invoke(prompt).content
                 

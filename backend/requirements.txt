@@ -1,6 +1,7 @@
 langgraph
 langchain
 langchain-openai
+langchain-community
 langchain-core
 sqlalchemy
 pandas
@@ -9,3 +10,7 @@ seaborn
 pydantic
 resend
 apscheduler
+fastapi
+uvicorn
+python-dotenv
+
