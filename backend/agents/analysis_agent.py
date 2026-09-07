@@ -86,11 +86,16 @@ def analysis_agent(state: PipelineState) -> PipelineState:
                 narrative = llm.invoke(prompt).content
             else:
                 try:
-                    from langchain_community.chat_models.ollama import ChatOllama
-                except ImportError:
-                    from langchain_community.chat_models import ChatOllama
-                llm = ChatOllama(model=os.getenv("OLLAMA_MODEL", "llama3"), temperature=0)
-                narrative = llm.invoke(prompt).content
+                    from langchain_ollama import ChatOllama
+                    llm = ChatOllama(model=os.getenv("OLLAMA_MODEL", "llama3"), temperature=0)
+                    narrative = llm.invoke(prompt).content
+                except Exception as ollama_err:
+                    try:
+                        from langchain_community.chat_models import ChatOllama
+                        llm = ChatOllama(model=os.getenv("OLLAMA_MODEL", "llama3"), temperature=0)
+                        narrative = llm.invoke(prompt).content
+                    except Exception:
+                        raise ollama_err
                 
             # Convert basic markdown to HTML since email_agent just puts it in <p> tags,
             import re
